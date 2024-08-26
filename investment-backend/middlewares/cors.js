@@ -4,8 +4,8 @@ const allowedOrigins = require("../config/allowedOrigins");
 
 const corsOptions = {
   origin: (origin, callback) => {
-    console.log(allowedOrigins);
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+    console.log(allowedOrigins, origin);
+    if (allowedOrigins.allowedOrigins.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
       const err = new CustomError("Not allowed by cors", 403);

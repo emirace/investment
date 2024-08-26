@@ -8,6 +8,7 @@ const {
   changeWithdrawalStatus,
   debitOrCreditUser,
   authorizeUserLogin,
+  addReferral,
 } = require("../controllers/userController");
 const { isAuth } = require("../middlewares/checkAuth");
 const { checkUserRole } = require("../middlewares/checkRole");
@@ -18,6 +19,7 @@ const router = express.Router();
 router.get("/", isAuth, checkUserRole("admin"), getUsers);
 //route for updating user details
 router.patch("/update", isAuth, multer.single("profilePhoto"), updateUser);
+router.post("/add-referral", isAuth, addReferral);
 router.get("/:id", isAuth, checkUserRole("admin"), getUser);
 router.delete("/", isAuth, checkUserRole("admin"), deleteUser);
 //manually crediting a user route should be handled

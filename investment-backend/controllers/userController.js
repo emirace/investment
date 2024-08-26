@@ -28,6 +28,51 @@ exports.getUser = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
+exports.addReferral = asyncErrorHandler(async (req, res, next) => {
+  const { referralCode } = req.body;
+  const userId = req.user._id; // Assuming user is authenticated and user ID is available
+
+  // Find the referrer by the referral code
+  const referrer = await User.findOne({ referralCode });
+
+  if (!referrer) {
+    return res.status(400).json({
+      status: "fail",
+      message: "Invalid referral code",
+    });
+  }
+
+  // Prevent the user from referring themselves
+  if (referrer._id.equals(userId)) {
+    return res.status(400).json({
+      status: "fail",
+      message: "You cannot refer yourself",
+    });
+  }
+
+  // Ensure the user hasn't already been referred
+  const user = await User.findById(userId);
+  if (user.referrer) {
+    return res.status(400).json({
+      status: "fail",
+      message: "You have already been referred",
+    });
+  }
+
+  // Link the referrer to the user
+  user.referrer = referrer._id;
+  referrer.referrals.push(user._id);
+
+  // Save both user and referrer
+  await user.save();
+  await referrer.save();
+
+  res.status(200).json({
+    status: "success",
+    message: "Referral added successfully",
+  });
+});
+
 //deleting a user by admin
 exports.deleteUser = asyncErrorHandler(async (req, res, next) => {
   const { id } = req.params;

@@ -26,7 +26,7 @@ function ContactUs() {
           <CiMail className="text-white" />
           <div>
             <span className="font-bold">EMAIL </span>
-            <p className="text-sm">miningexchange@gmail.com</p>
+            <p className="text-sm">XWN@gmail.com</p>
           </div>
         </div>
         {/* form div */}

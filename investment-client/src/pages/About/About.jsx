@@ -20,7 +20,7 @@ function About() {
       <Team />
       <Sponsors />
       <Footer />
-      <CoinSlider />
+      {/* <CoinSlider /> */}
     </>
   );
 }

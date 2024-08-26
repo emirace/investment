@@ -15,7 +15,7 @@ function Investment() {
       <Plans />
       <Sponsors />
       <Footer />
-      <CoinSlider />
+      {/* <CoinSlider /> */}
     </>
   );
 }

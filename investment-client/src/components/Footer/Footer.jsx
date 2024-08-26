@@ -2,7 +2,7 @@ function Footer() {
   return (
     <footer className="bg-slate-800 min-h-[40vh] flex flex-col items-center font-montserrat">
       <p className="text-white text-lg md:text-2xl font-bold mt-10 mb-5 text-center">
-        Over 300,000 dollars has been invested with MiningExchange
+        Over 300,000 dollars has been invested with XWN
       </p>
       <button className="p-2 rounded-md bg-red-400 text-white font-bold w-[150px] hover:bg-transparent border-white hover:border">
         Get Started
@@ -35,7 +35,7 @@ function Footer() {
       </div>
       <div className="my-4">
         <p className="text-white text-center text-xs md:text-lg">
-          Copyright © 2023 MiningExchange. All Rights Reserved.
+          Copyright © 2023 XWN. All Rights Reserved.
         </p>
       </div>
     </footer>

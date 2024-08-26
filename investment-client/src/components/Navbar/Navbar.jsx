@@ -7,6 +7,7 @@ import { LuLoader2 } from "react-icons/lu";
 import { RxHamburgerMenu } from "react-icons/rx";
 import NotificationPopup from "../NotificationPopup/NotificationPopup";
 import { useAuth } from "../../hooks/useAuth";
+import logo from "../../assets/logo.jpeg";
 
 function Navbar() {
   const [isOpen, setisOpen] = useState(false);
@@ -34,8 +35,12 @@ bg-slate-900 text-white"
           to="/"
           className="flex text-2xl cursor-pointer items-center gap-2 w-fit"
         >
-          <FaBitcoin className="w-7 h-7 text-red-400" />
-          <span className="font-bold text-sm md:text-xl">MiningEx</span>
+          <img
+            src={logo}
+            alt="logo"
+            className=" w-16 h-16 rounded-full object-cover"
+          />
+          <span className="font-bold text-sm md:text-xl">XWN</span>
         </NavLink>
 
         {/* menu icon */}
@@ -72,7 +77,7 @@ bg-slate-900 text-white"
           {user ? (
             <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row">
               <NavLink
-                to="dashboard"
+                to="/dashboard"
                 className="text-white flex items-center justify-center w-[150px] bg-transparent border border-red-400  py-1 px-3 md:ml-8 rounded md:static"
               >
                 Dashboard

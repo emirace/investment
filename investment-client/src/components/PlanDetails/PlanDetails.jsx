@@ -2,6 +2,7 @@
 import { LuLoader2 } from "react-icons/lu";
 
 function PlanDetails({ amount, handleInvesmentClick, plan, loading }) {
+  console.log("plan", plan);
   return (
     <div className="p-3">
       <div className="border border-gray-500 dark:border-white rounded-md p-3">

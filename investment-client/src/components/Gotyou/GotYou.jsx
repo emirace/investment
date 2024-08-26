@@ -25,8 +25,8 @@ function GotYou() {
             <div className="ms-4">
               <span>&quot;</span>
               <p className="text-sm md:text-lg">
-                At miningExchangefx.com, we take resposibility for
-                investor&apos;s success and portfolio performance
+                At XWNfx.com, we take resposibility for investor&apos;s success
+                and portfolio performance
               </p>
               <span className="text-red-400">Founder</span>
             </div>

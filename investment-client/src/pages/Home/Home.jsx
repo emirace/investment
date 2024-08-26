@@ -22,9 +22,9 @@ function Home() {
       <Onboarding />
       <Statistics />
       <Testimonial />
-      <CoinTable />
+      {/* <CoinTable /> */}
       <Sponsors />
-      <CoinSlider />
+      {/* <CoinSlider /> */}
       <Footer />
       {/* </section> */}
     </>

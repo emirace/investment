@@ -12,7 +12,7 @@ function Security() {
       <AboutHero title={"security"} />
       <Navbar />
       <SecurityDetails />
-      <CoinSlider />
+      {/* <CoinSlider /> */}
       <ContactUs />
       <Sponsors />
       <Footer />

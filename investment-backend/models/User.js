@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
-//i need to make a subscription schema
+// Subscription schema
 const subscriptionSchema = new mongoose.Schema({
   plan: {
     type: mongoose.Schema.Types.ObjectId,
@@ -20,7 +21,7 @@ const subscriptionSchema = new mongoose.Schema({
   startDate: Date,
 });
 
-//there should be a reference to a plan as part of the userSchema
+// User schema
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -54,18 +55,18 @@ const userSchema = new mongoose.Schema({
   },
   approvedBalance: {
     type: Number,
-    default: 0, //how do i actually restrict this information from being sent to my backend from the frontend?
+    default: 0,
   },
   totalDeposit: {
-    type: Number, //user's total approved deposit
+    type: Number,
     default: 0,
   },
   pendingDeposit: {
-    type: Number, //user's yet to be approved deposit
+    type: Number,
     default: 0,
   },
   investedFundsAndReturns: {
-    type: Number, //total amount of invested funds and returns
+    type: Number,
     default: 0,
   },
   isVerified: {
@@ -81,14 +82,33 @@ const userSchema = new mongoose.Schema({
     default: 0,
   },
   withdrawableFunds: {
-    type: Number, //total amount of withdrawable funds set by admin
+    type: Number,
     default: 0,
   },
   totalWithdrawal: {
     type: Number,
     default: 0,
   },
-  subscriptions: [subscriptionSchema], //We are actually using a schema here without creating a collection in our db
+  subscriptions: [subscriptionSchema],
+  referrer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+  referrals: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+  referralBonus: {
+    type: Number,
+    default: 0,
+  },
+  referralCode: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   password: {
     type: String,
     required: [true, "Please enter your password"],
@@ -101,32 +121,39 @@ const userSchema = new mongoose.Schema({
     type: String,
     validate: {
       validator: function (val) {
-        // Check if the password field is being modified
         if (this.isModified("password")) {
           return val === this.password;
         }
-        // If password field is not being modified, no validation needed
         return true;
       },
       message: "Password confirmation do not match",
     },
-    // Make confirmPassword required only during user creation
     required: function () {
       return this.isNew || this.isModified("password");
     },
   },
 });
 
+// Middleware to hash the password before saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
   this.confirmPassword = undefined;
+  next();
 });
 
-userSchema.methods.compareDbPassword = async (password, dbPassword) => {
+// Middleware to generate a unique referral code before saving
+userSchema.pre("save", function (next) {
+  if (!this.referralCode) {
+    this.referralCode = crypto.randomBytes(3).toString("hex"); // Generates a 6-character code
+  }
+  next();
+});
+
+// Method to compare passwords
+userSchema.methods.compareDbPassword = async function (password, dbPassword) {
   return await bcrypt.compare(password, dbPassword);
 };
 
-module.exports = new mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema);

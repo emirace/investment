@@ -4,22 +4,54 @@ const User = require("../models/User");
 const CustomError = require("../utils/customError");
 
 exports.registerUser = asyncErrorHandler(async (req, res, next) => {
-  const newUser = new User(req.body);
+  const { referralCode, ...userData } = req.body;
+
+  let referrer = null;
+
+  // Check if referral code is provided and find the referrer
+  if (referralCode) {
+    referrer = await User.findOne({ referralCode });
+
+    if (!referrer) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Invalid referral code",
+      });
+    }
+  }
+
+  // Create a new user with the provided data
+  const newUser = new User(userData);
+
+  // If a referrer was found, link the referrer to the new user
+  if (referrer) {
+    newUser.referrer = referrer._id;
+  }
+
   const user = await newUser.save();
+
+  // If a referrer was found, add the new user to the referrer's list of referrals
+  if (referrer) {
+    referrer.referrals.push(user._id);
+    await referrer.save();
+  }
+
+  // Generate tokens
   const refreshToken = generateRefreshToken(user._id);
   const accessToken = generateAccessToken(user._id);
 
+  // Set refresh token in a cookie and respond with user data and access token
   res
     .cookie("refresh_token", refreshToken, {
       httpOnly: true,
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       secure: process.env.NODE_ENV === "production",
       sameSite: "none",
     })
     .status(201)
     .json({
       status: "success",
-      message: "user created",
+      message: "User created successfully",
       user,
       token: accessToken,
     });

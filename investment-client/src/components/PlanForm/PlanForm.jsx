@@ -61,6 +61,13 @@ function PlanForm({ initialData, onSubmit, loading }) {
             directive="Enter percentage value"
           />
           <MyTextInput
+            label="Top up Interval (daily,weekly)"
+            name="topUpInterval"
+            type="string"
+            placeholder="Topup Interval"
+            directive="This is the frequency the user gets top eg daily, weekly..."
+          />
+          <MyTextInput
             label="Gift Bonus ($)"
             name="giftBonus"
             type="number"

@@ -32,8 +32,9 @@ function AuthProvider({ children }) {
       setUser(data.user);
       setRegisterLoading(false);
     } catch (err) {
-      setError(err.response.data.message);
+      console.log(err);
       setRegisterLoading(false);
+      setError(err.response.data?.message);
     }
   }, []);
 

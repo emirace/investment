@@ -33,7 +33,7 @@ function CreatePlan() {
     minimumPrice: "",
     maximumPrice: "",
     duration: "",
-    // topUpInterval: "",
+    topUpInterval: "",
     giftBonus: "",
     topUpAmount: "",
   };

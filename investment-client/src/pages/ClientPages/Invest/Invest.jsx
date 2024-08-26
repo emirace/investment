@@ -10,7 +10,7 @@ import Refetch from "../../../components/Refetch/Refetch";
 
 function Invest() {
   const [plan, setPlan] = useState("");
-  const [plans, setPlans] = useState(null);
+  const [plans, setPlans] = useState([]);
   const [investmentAmount, setInvestmentAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [investmentLoading, setInvestmentLoading] = useState(false);
@@ -92,7 +92,7 @@ function Invest() {
           <p className="text-sm dark:text-white">Getting plan details...</p>
         </div>
       )}
-      {plans && (
+      {plans.length > 0 && (
         <div className="grid  xl:grid-cols-4 gap-2 bg-white shadow-sm dark:bg-slate-800 font-montserrat">
           <PlanSelection
             plans={plans}
@@ -102,14 +102,16 @@ function Invest() {
             setPlan={setPlan}
           />
 
-          <div className=" col-span-4 xl:col-span-1  mt-5 text-gray-700  dark:text-white font-montserrat">
-            <PlanDetails
-              amount={investmentAmount}
-              handleInvesmentClick={handleInvestmentClick}
-              plan={plan}
-              loading={investmentLoading}
-            />
-          </div>
+          {plan && (
+            <div className=" col-span-4 xl:col-span-1  mt-5 text-gray-700  dark:text-white font-montserrat">
+              <PlanDetails
+                amount={investmentAmount}
+                handleInvesmentClick={handleInvestmentClick}
+                plan={plan}
+                loading={investmentLoading}
+              />
+            </div>
+          )}
         </div>
       )}
     </>

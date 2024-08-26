@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 5000;
 //   });
 // };
 // updateLog();
-
+console.log("HELLO");
 //middlewares
 app.use(morgan("dev"));
 app.use(helmet());

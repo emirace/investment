@@ -7,7 +7,7 @@ function Intro() {
         {/* text div */}
         <div>
           <h2 className="font-bold text-slate-900 text-lg text-center md:text-xl 2xl:text-4xl mb-7">
-            About Miningexchange.com
+            About XWN.com
           </h2>
           <p className="mb-5">
             universalcapitalfx.com is an investment company offering
