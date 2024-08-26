@@ -81,6 +81,12 @@ function Register() {
                 placeholder="Enter your phone number"
               />
               <AuthTextInput
+                label="Referral Code(Optional)"
+                name="referralCode"
+                type="text"
+                placeholder="ABCD123"
+              />
+              <AuthTextInput
                 label="Password"
                 name="password"
                 type="password"
