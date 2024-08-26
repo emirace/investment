@@ -16,10 +16,10 @@ function ContactUs() {
           <CiLocationOn className="text-white" />
           <div>
             <span className="font-bold">LOCATION </span>
-            <p className="text-sm">
+            {/* <p className="text-sm">
               Bentinck House, 3-8 Bolsover Street, London,{" "}
             </p>
-            <p className="text-sm">England, W1W 6AB</p>
+            <p className="text-sm">England, W1W 6AB</p> */}
           </div>
         </div>
         <div className="py-7  flex space-x-3 md:w-[50%]">
