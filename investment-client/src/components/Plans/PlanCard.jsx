@@ -26,7 +26,7 @@ function PlanCard({ plan }) {
         <span>Plan Duration: {plan.duration} Days</span>
       </div>
       <div className="p-4 flex flex-col space-y-7 items-center justify-center">
-        <span>Profits accessible after {plan.duration} days</span>
+        {/* <span>Profits accessible after {plan.duration} days</span> */}
         <div>
           <button className="text-white font-bold p-4 bg-slate-800">
             Get Started
