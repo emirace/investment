@@ -5,9 +5,10 @@ function PlanSelection({
   setPlan,
   investmentAmount,
   setInvestmentAmount,
+  setPaymentSource,
 }) {
   const { user } = useAuth();
-  const quickAmounts = [300, 500, 1000, 1500, 2000];
+  const quickAmounts = [500, 1000, 3000, 5000, 8000, 12000];
   const handleClick = (number) => {
     setInvestmentAmount(number);
   };
@@ -24,6 +25,7 @@ function PlanSelection({
           <select
             name="plan"
             onChange={(e) => handlePlanSelection(e.target.value)}
+            className="bg-red-400 p-4 rounded-lg text-white"
           >
             {plans.map((plan) => (
               <option key={plan._id} value={plan._id}>
@@ -43,7 +45,7 @@ function PlanSelection({
                   amount === investmentAmount ? "bg-red-400" : "bg-slate-200"
                 } flex items-center min-w-[100px] justify-center px-4 py-3 rounded-md cursor-pointer mr-4 mt-2`}
               >
-                ${amount}
+                {amount}EGP
               </div>
             ))}
           </div>
@@ -65,12 +67,18 @@ function PlanSelection({
               Money to be debited from your account balance
             </p>
             <div className="my-4">
-              <input
-                type="text"
-                readOnly
-                className="border border-gray-500 outline-none rounded-md w-full p-2 dark:text-white dark:bg-slate-900 dark:border-white"
-                value={`Account Balance:   $${user?.approvedBalance}`}
-              />
+              <select
+                name="paymentSource"
+                onChange={(e) => setPaymentSource(e.target.value)}
+                className="border w-full border-gray-500 p-2 rounded-lg dark:text-white dark:bg-slate-900 dark:border-white "
+              >
+                <option value={"approvedBalance"}>
+                  {`Account Balance:   ${user?.approvedBalance}EGP`}
+                </option>
+                <option value={"referralBonus"}>
+                  {`Bonus:   ${user?.referralBonus}EGP`}
+                </option>
+              </select>
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@ const {
   debitOrCreditUser,
   authorizeUserLogin,
   addReferral,
+  getUserReferrals,
 } = require("../controllers/userController");
 const { isAuth } = require("../middlewares/checkAuth");
 const { checkUserRole } = require("../middlewares/checkRole");
@@ -17,6 +18,7 @@ const router = express.Router();
 
 //protected for just admin
 router.get("/", isAuth, checkUserRole("admin"), getUsers);
+router.get("/my-referrals", isAuth, getUserReferrals);
 //route for updating user details
 router.patch("/update", isAuth, multer.single("profilePhoto"), updateUser);
 router.post("/add-referral", isAuth, addReferral);

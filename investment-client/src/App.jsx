@@ -29,6 +29,7 @@ import Deposits from "./pages/AdminPages/Deposits/Deposits";
 import Withdrawal from "./pages/ClientPages/Withdrawal/Withdrawal";
 import Withdrawals from "./pages/AdminPages/Withdrawals/Withdrawals";
 import Profile from "./pages/Profile/Profile";
+import Referral from "./pages/ClientPages/Referral";
 
 axios.interceptors.response.use(
   (response) => {
@@ -92,6 +93,7 @@ function App() {
           >
             <Route index element={<Dashboard />} />
             <Route path="deposit" element={<Deposit />} />
+            <Route path="referral" element={<Referral />} />
             <Route path="buy-plan" element={<Invest />} />
             <Route path="transactions" element={<Transactions />} />
             <Route path="withdrawal" element={<Withdrawal />} />

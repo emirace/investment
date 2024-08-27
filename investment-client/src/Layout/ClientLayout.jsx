@@ -14,6 +14,7 @@ import {
   IdentificationIcon,
 } from "@heroicons/react/24/solid";
 import { useAuth } from "../hooks/useAuth";
+import { FaUsers } from "react-icons/fa";
 
 function ClientLayout() {
   const navigate = useNavigate();
@@ -53,6 +54,11 @@ function ClientLayout() {
       link: "Deposit",
       icon: <ArrowDownTrayIcon className="h-5 w-5" />,
       to: "/dashboard/deposit",
+    },
+    {
+      link: "Referral",
+      icon: <FaUsers className="h-5 w-5" />,
+      to: "/dashboard/referral",
     },
     {
       link: "Withdraw",

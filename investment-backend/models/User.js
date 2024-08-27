@@ -19,6 +19,7 @@ const subscriptionSchema = new mongoose.Schema({
     required: true,
   },
   startDate: Date,
+  nextPaymentDate: Date,
 });
 
 // User schema
@@ -114,7 +115,7 @@ const userSchema = new mongoose.Schema({
   },
   isAuthorized: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   confirmPassword: {
     type: String,
@@ -142,10 +143,18 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// Middleware to generate a unique referral code before saving
-userSchema.pre("save", function (next) {
+userSchema.pre("save", async function (next) {
   if (!this.referralCode) {
-    this.referralCode = crypto.randomBytes(3).toString("hex"); // Generates a 6-character code
+    let codeExists = true;
+    let referralCode;
+
+    // Keep generating a referral code until a unique one is found
+    while (codeExists) {
+      referralCode = crypto.randomBytes(3).toString("hex"); // Generates a 6-character code
+      codeExists = await User.exists({ referralCode });
+    }
+
+    this.referralCode = referralCode;
   }
   next();
 });

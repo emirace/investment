@@ -7,8 +7,8 @@ const connectDb = require("./config/db");
 const globalErrorHandler = require("./controllers/errorController");
 const cors = require("cors");
 const corsMiddleware = require("./middlewares/cors");
-// const cron = require("node-cron");
-// const { scheduleUserBalanceUpdates } = require("./controllers/userController");
+const cron = require("node-cron");
+const { scheduleUserBalanceUpdates } = require("./controllers/userController");
 // const corsMiddleware = require("./middlewares/cors");
 
 dotenv.config();
@@ -16,13 +16,13 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-// const updateLog = () => {
-//   cron.schedule("* * * * *", function () {
-//     console.log("running a task every minute");
-//   });
-// };
-// updateLog();
-console.log("HELLO");
+const updateLog = () => {
+  cron.schedule("0 0 * * *", function () {
+    scheduleUserBalanceUpdates();
+  });
+};
+updateLog();
+
 //middlewares
 app.use(morgan("dev"));
 app.use(helmet());

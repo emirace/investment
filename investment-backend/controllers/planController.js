@@ -2,6 +2,7 @@ const Plan = require("../models/Plan");
 const User = require("../models/User");
 const asyncErrorHandler = require("../utils/asyncErrorHandler");
 const CustomError = require("../utils/customError");
+const calculateNextPaymentDate = require("../utils/subscription");
 
 //admin logic for creating a new plan
 exports.createPlan = asyncErrorHandler(async (req, res, next) => {
@@ -138,86 +139,89 @@ exports.subscribeToSinglePlan = asyncErrorHandler(async (req, res, next) => {
 
 //right subscribe to plan because a user can subscribe to multiple plans here
 exports.subscribeToPlan = asyncErrorHandler(async (req, res, next) => {
-  const { planId, amount } = req.body;
+  const { planId, amount, paymentSource } = req.body; // Added paymentSource to req.body
   const plan = await Plan.findById(planId);
+
   if (!plan) {
-    const err = new CustomError("Plan does not exist", 404);
-    return next(err);
+    return next(new CustomError("Plan does not exist", 404));
   }
+
   if (amount < plan.minimumPrice) {
-    const err = new CustomError(
-      `$${amount} too low for selected plan. Increase the amount`
+    return next(
+      new CustomError(
+        `$${amount} too low for selected plan. Increase the amount`,
+        400
+      )
     );
-    return next(err);
   }
-  // check if user's approved balance is not less than the amount of the desired plan
-  if (plan.minimumPrice > req.user.approvedBalance) {
-    const err = new CustomError(
-      "Your available balance is not enough for this plan",
-      402
-    );
-    return next(err);
+
+  let availableBalance;
+  let balanceField;
+
+  // Determine the payment source
+  if (paymentSource === "approvedBalance") {
+    availableBalance = req.user.approvedBalance;
+    balanceField = "approvedBalance";
+  } else if (paymentSource === "referralBonus") {
+    availableBalance = req.user.referralBonus;
+    balanceField = "referralBonus";
+  } else {
+    return next(new CustomError("Invalid payment source", 400));
   }
-  //if amount entered is greater than user balance as final check
-  if (amount > req.user.approvedBalance) {
-    const err = new CustomError(
-      "Amount entered is less than your approved balance"
-    );
-    return next(err);
+
+  if (amount > availableBalance) {
+    return next(new CustomError("Insufficient funds for this plan", 402));
   }
-  //the below is our new subscription object
+
+  const nextPaymentDate = calculateNextPaymentDate(
+    new Date(),
+    plan.topUpInterval
+  );
+
   const newSubscription = {
     plan: plan._id,
     startDate: new Date(),
     cost: amount,
     frequency: plan.topUpInterval,
+    nextPaymentDate,
   };
 
-  //update user object by pushing into the subscription array and making necessary decrement and increment
-  //was req.user.approvedBalance before => changed to amount
-  if (plan.maximumPrice >= amount) {
-    console.log(
-      "the amount is less than the maximum price of the plan, and hence we are running this functionality"
-    );
-    await User.findByIdAndUpdate(
-      req.user._id,
-      {
-        $inc: {
-          approvedBalance: -amount,
-          investedFundsAndReturns: amount,
-        },
-        $push: {
-          subscriptions: { ...newSubscription },
-        },
-      },
-      { new: true, runValidators: true }
-    );
-    delete newSubscription.plan;
-    return res.status(200).json({
-      status: "success",
-      message: `You successfully subscribed to ${plan.name} plan and $${amount} deducted for subscription`,
-      plan: newSubscription,
-    });
-  }
-  //if amount is greater than maximum price of plan
-  console.log(
-    "amount is greater than maximum price of plan and hence this should run"
-  );
-  await User.findByIdAndUpdate(
-    req.user._id,
-    {
-      $inc: {
-        approvedBalance: -plan.maximumPrice,
-        investedFundsAndReturns: plan.maximumPrice,
-      },
-      $push: { subscriptions: { ...newSubscription, cost: plan.maximumPrice } },
+  const updateData = {
+    $inc: {
+      [balanceField]: -amount,
+      investedFundsAndReturns: amount,
     },
-    { new: true, runValidators: true }
-  );
+    $push: { subscriptions: { ...newSubscription } },
+  };
+
+  // Check if the user was referred by another user
+  if (req.user.referrer) {
+    const referrer = await User.findById(req.user.referrer);
+    if (referrer) {
+      const referralBonus = amount * 0.1; // 10% referral bonus
+      await User.findByIdAndUpdate(
+        referrer._id,
+        {
+          $inc: {
+            referralBonus: referralBonus,
+          },
+        },
+        { new: true, runValidators: true }
+      );
+      console.log(`Added $${referralBonus} to referrer ${referrer.email}`);
+    }
+  }
+
+  // Update the user's subscription and balance
+  await User.findByIdAndUpdate(req.user._id, updateData, {
+    new: true,
+    runValidators: true,
+  });
+
   delete newSubscription.plan;
-  return res.status(200).json({
+  res.status(200).json({
     status: "success",
-    message: `You successfully subscribed to ${plan.name} plan and $${plan.maximumPrice} deducted for subscription`,
+    message: `You successfully subscribed to ${plan.name} plan and $${amount} was deducted from your ${paymentSource}`,
     plan: newSubscription,
   });
 });

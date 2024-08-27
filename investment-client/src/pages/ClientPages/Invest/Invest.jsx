@@ -14,6 +14,7 @@ function Invest() {
   const [investmentAmount, setInvestmentAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [investmentLoading, setInvestmentLoading] = useState(false);
+  const [paymentSource, setPaymentSource] = useState("");
   const [error, setError] = useState(false);
   const { setUser, user } = useAuth();
   console.log(user);
@@ -45,7 +46,11 @@ function Invest() {
 
   const handleInvestmentClick = async () => {
     setInvestmentLoading(true);
-    const planObject = { planId: plan._id, amount: investmentAmount };
+    const planObject = {
+      planId: plan._id,
+      amount: investmentAmount,
+      paymentSource,
+    };
     // subscribe to plan logic here
     try {
       const { data } = await axios.patch(
@@ -100,6 +105,7 @@ function Invest() {
             setInvestmentAmount={setInvestmentAmount}
             plan={plan}
             setPlan={setPlan}
+            setPaymentSource={setPaymentSource}
           />
 
           {plan && (

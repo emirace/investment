@@ -41,7 +41,7 @@ function ClientDashboardHome() {
     },
     {
       title: "Bonus",
-      amount: 0,
+      amount: user?.referralBonus,
       icon: <ArrowUpIcon className="text-white h-10 w-10" />,
       iconBgColor: "bg-yellow-400",
     },
@@ -59,6 +59,10 @@ function ClientDashboardHome() {
         {/* was user before */}
         Welcome {user?.name}
       </h1>
+
+      <div className="my-4 border border-white p-6 rounded-lg">
+        Bounce back 10% percent for the first 500 Egyptian users
+      </div>
       <h2 className="text-gray-700 text-xl mb-4 font-bold dark:text-white font-montserrat">
         Account Summary
       </h2>
