@@ -20,7 +20,7 @@ function PlanCard({ plan, handleDelete, loading }) {
     <div className="bg-white text-gray-700 py-4 px-6 rounded-md shadow-md dark:bg-slate-800 dark:text-white font-montserrat">
       <h2 className="text-2xl py-3 uppercase">{name}</h2>
       <p className="text-center  text-red-400">
-        $<span className="text-5xl ">{minimumPrice}</span>
+        E£<span className="text-5xl ">{minimumPrice}</span>
       </p>
       <div className="mt-6 ">
         <div className="flex items-center justify-between mb-2">
