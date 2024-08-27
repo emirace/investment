@@ -40,7 +40,7 @@ function PlanCard({ plan, handleDelete, loading }) {
       </div>
       <div className="flex items-center justify-between mb-2">
         <p>Gift Bonus</p>
-        <p className="capitalize">${giftBonus}</p>
+        <p className="capitalize">{giftBonus}E£</p>
       </div>
       <div className="flex items-center justify-between mb-2">
         <p>Duration</p>
