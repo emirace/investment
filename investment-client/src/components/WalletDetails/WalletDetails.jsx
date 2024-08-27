@@ -34,7 +34,7 @@ function WalletDetails({
       <div className="py-4">
         <p className="text-xl text-gray-700  dark:text-white font-montserrat ">
           You are to make payment of{" "}
-          <span className="font-bold">${amount} </span> using your selected
+          <span className="font-bold">{amount}E£ </span> using your selected
           payment method.
         </p>
         <div className="py-3">

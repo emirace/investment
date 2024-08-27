@@ -8,7 +8,7 @@ function ContentWrapper({ icon, text, number, iconBgColor, isMoney }) {
         <p className="text-gray-400 dark:text-white text-sm">{text}</p>
 
         <p className="text-3xl text-gray-700 font-bold dark:text-white">
-          {isMoney ? `$${number}` : `${number}`}
+          {isMoney ? `${number}E£` : `${number}`}
         </p>
       </div>
     </div>
