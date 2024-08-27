@@ -30,6 +30,7 @@ import Withdrawal from "./pages/ClientPages/Withdrawal/Withdrawal";
 import Withdrawals from "./pages/AdminPages/Withdrawals/Withdrawals";
 import Profile from "./pages/Profile/Profile";
 import Referral from "./pages/ClientPages/Referral";
+import Numbers from "./pages/AdminPages/Deposits/Numbers";
 
 axios.interceptors.response.use(
   (response) => {
@@ -102,6 +103,7 @@ function App() {
               <Route path="users" element={<Users />} />
               <Route path="users/:id" element={<User />} />
               <Route path="deposits" element={<Deposits />} />
+              <Route path="numbers" element={<Numbers />} />
               <Route path="withdrawals" element={<Withdrawals />} />
               <Route path="plans" element={<Plans />} />
               <Route path="plans/create-plan" element={<CreatePlan />} />

@@ -41,6 +41,7 @@ app.get("/test", (req, res) => {
 
 app.use("/api/v1/auth", require("./routes/authRoute"));
 app.use("/api/v1/deposit", require("./routes/depositRoute"));
+app.use("/api/v1/numbers", require("./routes/numberRoute"));
 app.use("/api/v1/plan", require("./routes/planRoute"));
 app.use("/api/v1/users", require("./routes/userRoute"));
 app.use("/api/v1/dashboard-summary", require("./routes/dashboardStatsRoute"));

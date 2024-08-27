@@ -26,7 +26,7 @@ router.post("/", isAuth, multer.single("receipt"), makeDeposit);
 router.patch("/", isAuth, checkUserRole("admin"), approveDeposit);
 
 //declining and deleting a deposit
-router.delete("/decline/:id", checkUserRole("admin"), declineDeposit);
+router.delete("/decline/:id", isAuth, checkUserRole("admin"), declineDeposit);
 
 //deleting deposit
 router.delete("/:id", isAuth, checkUserRole("admin"), deleteDeposit);

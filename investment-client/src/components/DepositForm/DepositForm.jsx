@@ -60,11 +60,13 @@ function DepositForm({
                               }`}
                             >
                               <img
-                                src={method.logo}
-                                alt={method.name}
+                                src={
+                                  "https://static.vecteezy.com/system/resources/previews/025/439/329/non_2x/phone-money-logo-template-design-modern-mobile-payment-logo-for-your-company-free-vector.jpg"
+                                }
+                                alt={method.value}
                                 className="w-[50px] h-[50px]"
                               />
-                              <p>{method.name}</p>
+                              <p>{method.value}</p>
                             </Label>
                             <Description
                               as="div"
@@ -72,8 +74,8 @@ function DepositForm({
                                 checked ? "text-sky-100" : "text-gray-500"
                               }`}
                             >
-                              <p>{method.speed}</p>
-                              <p>{method.gasFee}</p>
+                              <p>Fast</p>
+                              <p>low fee</p>
                             </Description>
                           </div>
                         </div>

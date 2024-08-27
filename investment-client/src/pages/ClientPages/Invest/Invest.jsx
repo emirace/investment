@@ -14,7 +14,7 @@ function Invest() {
   const [investmentAmount, setInvestmentAmount] = useState("");
   const [loading, setLoading] = useState(false);
   const [investmentLoading, setInvestmentLoading] = useState(false);
-  const [paymentSource, setPaymentSource] = useState("");
+  const [paymentSource, setPaymentSource] = useState("approvedBalance");
   const [error, setError] = useState(false);
   const { setUser, user } = useAuth();
   console.log(user);

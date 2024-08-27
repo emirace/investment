@@ -30,6 +30,11 @@ const adminLinks = [
     to: "deposits",
   },
   {
+    link: "Deposit Numbers",
+    icon: <ArrowDownTrayIcon className="h-5 w-5" />,
+    to: "/dashboard/numbers",
+  },
+  {
     link: "Investments",
     icon: <CircleStackIcon className="h-5 w-5" />,
     to: "plans",
