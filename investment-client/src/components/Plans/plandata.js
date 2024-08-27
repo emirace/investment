@@ -5,7 +5,7 @@ export const data = [
     dailyPercentage: 1,
     minimum: 500,
     maximum: 500,
-    duration: 7,
+    duration: 365,
   },
   {
     name: "silver",
@@ -13,7 +13,7 @@ export const data = [
     dailyPercentage: 1.1,
     minimum: 1000,
     maximum: 1000,
-    duration: 14,
+    duration: 365,
   },
   {
     name: "invincible",
@@ -21,7 +21,7 @@ export const data = [
     dailyPercentage: 1.25,
     minimum: 3000,
     maximum: 3000,
-    duration: 30,
+    duration: 365,
   },
   {
     name: "gold",
@@ -29,7 +29,7 @@ export const data = [
     dailyPercentage: 1.4,
     minimum: 5000,
     maximum: 5000,
-    duration: 14,
+    duration: 365,
   },
   {
     name: "platinum",
@@ -37,7 +37,7 @@ export const data = [
     dailyPercentage: 1.6,
     minimum: 8000,
     maximum: 8000,
-    duration: 21,
+    duration: 365,
   },
   {
     name: "diamond",
@@ -45,6 +45,6 @@ export const data = [
     dailyPercentage: 1.8,
     minimum: 12000,
     maximum: 12000,
-    duration: 30,
+    duration: 365,
   },
 ];
