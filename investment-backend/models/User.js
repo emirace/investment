@@ -134,6 +134,11 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// Static method to check for existing referral code
+userSchema.statics.isReferralCodeExists = async function (referralCode) {
+  return await this.exists({ referralCode });
+};
+
 // Middleware to hash the password before saving
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
@@ -144,18 +149,18 @@ userSchema.pre("save", async function (next) {
 });
 
 userSchema.pre("save", async function (next) {
-  if (!this.referralCode) {
-    let codeExists = true;
-    let referralCode;
+  if (!this.isModified("referralCode") && this.referralCode) return next();
 
-    // Keep generating a referral code until a unique one is found
-    while (codeExists) {
-      referralCode = crypto.randomBytes(3).toString("hex"); // Generates a 6-character code
-      codeExists = await User.exists({ referralCode });
-    }
+  let codeExists = true;
+  let referralCode;
 
-    this.referralCode = referralCode;
+  // Keep generating a referral code until a unique one is found
+  while (codeExists) {
+    referralCode = crypto.randomBytes(3).toString("hex"); // Generates a 6-character code
+    codeExists = await this.constructor.isReferralCodeExists(referralCode);
   }
+
+  this.referralCode = referralCode;
   next();
 });
 

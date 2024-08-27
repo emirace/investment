@@ -34,8 +34,8 @@ function Deposits() {
   }, []);
 
   const columns = [
-    { name: "Name", selector: (row) => row.user.name },
-    { name: "Email", selector: (row) => row.user.email },
+    { name: "Name", selector: (row) => row?.user?.name },
+    { name: "Email", selector: (row) => row?.user?.email },
     { name: "Amount", selector: (row) => row.amount },
     {
       name: "Status",
