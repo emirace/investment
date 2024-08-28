@@ -17,7 +17,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const updateLog = () => {
-  cron.schedule("0 0 * * *", function () {
+  cron.schedule("0 * * * *", function () {
     scheduleUserBalanceUpdates();
   });
 };
