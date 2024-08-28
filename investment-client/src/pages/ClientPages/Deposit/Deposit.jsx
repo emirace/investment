@@ -103,7 +103,7 @@ function Deposit() {
             <div className="flex  border-b border-gray-500 dark:border-white p-4">
               <p className="flex-1 font-semibold">Pending Deposits</p>
               <div className="flex-1">
-                <p className="font-semibold ">{user?.pendingDeposit}E£</p>
+                <p className="font-semibold ">{user?.pendingDeposit}EGP</p>
                 <span className="text-sm text-gray-500">Amount</span>
               </div>
             </div>
