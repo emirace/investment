@@ -40,7 +40,7 @@ bg-slate-900 text-white"
             alt="logo"
             className=" w-16 h-16 rounded-full object-cover"
           />
-          <span className="font-bold text-sm md:text-xl">XWN</span>
+          <span className="font-bold text-sm md:text-xl">XWIN</span>
         </NavLink>
 
         {/* menu icon */}

@@ -32,7 +32,7 @@ const services = [
 function Services() {
   return (
     <div className="font-montserrat flex flex-col items-center mt-7">
-      <h3 className="text-red-400  text-xs md:text-lg">Welcome To XWN</h3>
+      <h3 className="text-red-400  text-xs md:text-lg">Welcome To XWIN</h3>
       <h2 className="font-bold text-xl md:text-6xl">What we do</h2>
       {/* little line */}
       <div className="w-[50px] md:w-[100px] h-[2px] bg-red-400 mt-4" />
