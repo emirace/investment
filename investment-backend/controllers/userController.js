@@ -311,7 +311,7 @@ exports.scheduleUserBalanceUpdates = asyncErrorHandler(async () => {
         await User.findByIdAndUpdate(
           user._id,
           {
-            $inc: { approvedBalance: totalProfit },
+            $inc: { withdrawableFunds: totalProfit },
             subscriptions: user.subscriptions,
           },
           { new: true, runValidators: true }
