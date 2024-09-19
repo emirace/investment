@@ -288,9 +288,10 @@ exports.scheduleUserBalanceUpdates = asyncErrorHandler(async () => {
 
     users.forEach(async (user) => {
       let totalProfit = 0;
-
+      console.log(user);
       for (let subscription of user.subscriptions) {
         const plan = await Plan.findById(subscription.plan);
+        console.log(subscription);
 
         if (plan && new Date() >= subscription.nextPaymentDate) {
           const profit = (subscription.cost * plan.topUpAmount) / 100;

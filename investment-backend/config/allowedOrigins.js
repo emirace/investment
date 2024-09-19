@@ -1,10 +1,10 @@
 const devAllowedOrigins = [
   "http://localhost:5173",
-  "https://investment-dun.vercel.app",
+  "https://investment-wzp6.onrender.com",
 ];
 const prodAllowedOrigins = [
   "https://investment-build-client.onrender.com",
-  "https://investment-dun.vercel.app",
+  "https://investment-wzp6.onrender.com",
 ];
 const dotenv = require("dotenv");
 
